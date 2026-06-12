@@ -1,0 +1,19 @@
+---
+- name: p1
+  hosts: ios
+  vars:
+    U: MEDO
+  tasks:
+    - name: t1
+      cisco.ios.banner:
+          banner: login
+          text: |
+            "MY Bnner {{ U }}"
+          state: present
+
+    - name: create a new user
+      cisco.ios.ios_user:
+        name: ansible    
+        nopassword: true
+        sshkey: "{{ lookup('file', '~/.ssh/lab_rsa.pub') }}"
+        state: present
